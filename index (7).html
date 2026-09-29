@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Controle de Ordens de Serviço</title>
+  <style>
+    :root{
+      --bg:#f4f6f9; --card:#fff; --text:#101828; --muted:#667085; --line:#d0d5dd;
+      --blue:#003b73; --blue2:#0052a3; --orange:#f59e0b; --green:#039855; --red:#d92d20;
+      --shadow:0 10px 30px rgba(16,24,40,.08); --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+    header{background:linear-gradient(135deg,#06182f,#003b73);color:white;padding:22px 18px}
+    .wrap{width:min(1200px,100%);margin:auto}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{width:58px;height:58px;object-fit:contain;background:white;border-radius:14px;padding:5px;display:none}
+    .fallback-logo{width:58px;height:58px;border-radius:14px;background:white;color:var(--blue);display:grid;place-items:center;font-size:30px;font-weight:800}
+    h1{margin:0;font-size:25px;line-height:1.1}
+    .subtitle{margin:4px 0 0;color:#d6e7ff;font-size:14px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    button,.btn{border:0;border-radius:12px;padding:11px 14px;font-weight:700;cursor:pointer;background:var(--blue);color:white;transition:.15s;text-decoration:none;font-size:14px}
+    button:hover,.btn:hover{filter:brightness(.95);transform:translateY(-1px)}
+    .btn-light{background:white;color:var(--blue)} .btn-orange{background:var(--orange);color:#111827}
+    .btn-green{background:var(--green)} .btn-red{background:var(--red)} .btn-gray{background:#475467}
+    .btn-small{padding:7px 10px;font-size:12px;border-radius:10px}
+    main{width:min(1200px,100%);margin:18px auto;padding:0 14px 40px}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+    .card{background:var(--card);border:1px solid #eaecf0;border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+    .metric-label{color:var(--muted);font-size:13px;font-weight:700;margin-bottom:8px}
+    .metric-value{font-size:26px;font-weight:900;letter-spacing:-.5px}
+    .metric-hint{color:var(--muted);font-size:12px;margin-top:5px}
+    .section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+    .section-title h2{margin:0;font-size:20px}
+    .filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+    input,select,textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font-size:14px;outline:none;background:white}
+    textarea{min-height:90px;resize:vertical}
+    input:focus,select:focus,textarea:focus{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(0,82,163,.12)}
+    .table-wrap{overflow:auto;border-radius:14px;border:1px solid #eaecf0}
+    table{width:100%;border-collapse:collapse;min-width:920px;background:white}
+    th,td{padding:12px;border-bottom:1px solid #eaecf0;text-align:left;font-size:14px;vertical-align:top}
+    th{background:#f9fafb;color:#344054;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+    tr:hover td{background:#fcfcfd}
+    .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}
+    .paid{background:#ecfdf3;color:#027a48}.open{background:#fff7ed;color:#b54708}
+    .money{font-weight:900;white-space:nowrap}.muted{color:var(--muted)}.service-cell{max-width:360px;white-space:pre-wrap}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+    .bar-area{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+    .bar-row{display:grid;grid-template-columns:130px 1fr 92px;align-items:center;gap:10px;font-size:13px}
+    .bar-track{height:12px;background:#eaecf0;border-radius:999px;overflow:hidden}
+    .bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--orange));border-radius:999px}
+    .modal{position:fixed;inset:0;background:rgba(16,24,40,.55);display:none;align-items:center;justify-content:center;padding:14px;z-index:50}
+    .modal.show{display:flex}
+    .modal-card{width:min(680px,100%);max-height:92vh;overflow:auto;background:white;border-radius:22px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-grid .full{grid-column:1/-1}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.modal-head h2{margin:0;font-size:20px}
+    .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px;flex-wrap:wrap}
+    .print-area{display:none}
+    @media(max-width:850px){.grid{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}h1{font-size:21px}}
+    @media(max-width:520px){.grid{grid-template-columns:1fr}.metric-value{font-size:23px}}
+    @media print{
+      body{background:white} header,main,.modal{display:none!important}.print-area{display:block;padding:24px;color:#111827;font-family:Arial,Helvetica,sans-serif}
+      .print-logo{display:flex;align-items:center;gap:12px;border-bottom:2px solid #e5e7eb;padding-bottom:14px;margin-bottom:20px}
+      .print-logo img{width:70px;height:70px;object-fit:contain}.print-title{font-size:26px;font-weight:900}.print-sub{color:#667085;margin-top:4px}
+      .print-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #d0d5dd;margin-bottom:22px}
+      .print-grid div{padding:12px;border-bottom:1px solid #d0d5dd}.print-grid div:nth-child(odd){border-right:1px solid #d0d5dd}
+      .print-box{border:1px solid #d0d5dd;padding:14px;min-height:110px;margin-bottom:22px;white-space:pre-wrap}
+      .print-value{border:1px solid #d0d5dd;background:#f2f4f7;padding:14px;font-size:26px;font-weight:900;text-align:right;margin-bottom:30px}
+      .signs{display:grid;grid-template-columns:1fr 1fr;gap:46px;margin-top:70px}.sign{text-align:center;border-top:1px solid #111827;padding-top:8px;color:#475467}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap top">
+    <div class="brand">
+      <img src="logo.png" alt="Logo" onload="this.style.display='block';document.querySelector('.fallback-logo').style.display='none'">
+      <div class="fallback-logo">⚡</div>
+      <div><h1>Controle de Ordens de Serviço</h1><p class="subtitle">Assistência técnica • valores recebidos • pagamentos pendentes</p></div>
+    </div>
+    <div class="actions">
+      <button class="btn-light" onclick="openModal()">+ Nova OS</button>
+      <button class="btn-orange" onclick="exportCSV()">Exportar CSV</button>
+      <button class="btn-gray" onclick="backupJSON()">Backup JSON</button>
+      <label class="btn btn-gray" for="restoreFile">Importar</label>
+      <input id="restoreFile" type="file" accept=".json" style="display:none" onchange="restoreJSON(event)">
+    </div>
+  </div>
+</header>
+<main>
+  <section class="grid">
+    <div class="card"><div class="metric-label">Total lançado</div><div class="metric-value" id="totalLancado">R$ 0,00</div><div class="metric-hint">Soma de todas as OS</div></div>
+    <div class="card"><div class="metric-label">Total recebido</div><div class="metric-value" id="totalPago">R$ 0,00</div><div class="metric-hint">Somente OS pagas</div></div>
+    <div class="card"><div class="metric-label">Em aberto</div><div class="metric-value" id="totalAberto">R$ 0,00</div><div class="metric-hint">Ainda falta receber</div></div>
+    <div class="card"><div class="metric-label">Ticket médio</div><div class="metric-value" id="ticketMedio">R$ 0,00</div><div class="metric-hint" id="qtdOs">0 ordens</div></div>
+  </section>
+  <section class="card">
+    <div class="section-title"><h2>Ordens de Serviço</h2><span class="muted" id="lastUpdate"></span></div>
+    <div class="filters">
+      <input id="search" placeholder="Pesquisar cliente ou serviço..." oninput="render()">
+      <select id="statusFilter" onchange="render()"><option value="todos">Todos os status</option><option value="pago">Pagas</option><option value="aberto">Em aberto</option></select>
+      <input id="dateFrom" type="date" onchange="render()"><input id="dateTo" type="date" onchange="render()">
+    </div>
+    <div class="table-wrap"><table><thead><tr><th>OS</th><th>Data</th><th>Cliente</th><th>Serviço</th><th>Valor</th><th>Status</th><th>Pagamento</th><th>Ações</th></tr></thead><tbody id="ordersTable"></tbody></table></div>
+  </section>
+  <section class="two-col">
+    <div class="card"><div class="section-title"><h2>Dashboard de entradas</h2></div><div class="bar-area" id="monthlyBars"></div></div>
+    <div class="card"><div class="section-title"><h2>Resumo por status</h2></div><div class="bar-area" id="statusBars"></div></div>
+  </section>
+</main>
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <div class="modal-head"><h2 id="modalTitle">Nova Ordem de Serviço</h2><button class="btn-small btn-gray" onclick="closeModal()">Fechar</button></div>
+    <form id="orderForm" onsubmit="saveOrder(event)">
+      <input type="hidden" id="editId">
+      <div class="form-grid">
+        <div><label>Cliente</label><input id="cliente" required placeholder="Ex: Alan Dalazen"></div>
+        <div><label>Data</label><input id="data" type="date" required></div>
+        <div><label>Valor</label><input id="valor" required inputmode="decimal" placeholder="Ex: 250,00"></div>
+        <div><label>Status</label><select id="status"><option value="aberto">Em aberto</option><option value="pago">Pago</option></select></div>
+        <div><label>Forma de pagamento</label><select id="pagamento"><option value="">Não informado</option><option>Pix</option><option>Dinheiro</option><option>Cartão</option><option>Boleto</option><option>Transferência</option></select></div>
+        <div><label>Técnico</label><input id="tecnico" placeholder="Anderson" value="Anderson"></div>
+        <div class="full"><label>Serviço executado</label><textarea id="servico" required placeholder="Descreva o serviço executado..."></textarea></div>
+        <div class="full"><label>Observações</label><textarea id="observacoes" placeholder="Ex: Defeito principal, testes feitos, peças trocadas..."></textarea></div>
+      </div>
+      <div class="modal-actions"><button type="button" class="btn-gray" onclick="closeModal()">Cancelar</button><button type="submit" class="btn-green">Salvar OS</button></div>
+    </form>
+  </div>
+</div>
+<section class="print-area" id="printArea"></section>
+<script>
+const STORAGE_KEY="controle_os_anderson_v1"; let orders=loadOrders();
+function hoje(){return new Date().toISOString().slice(0,10)}
+function brDate(s){if(!s)return "";const [y,m,d]=s.split("-");return `${d}/${m}/${y}`}
+function money(v){return Number(v||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}
+function parseMoney(v){if(typeof v==="number")return v;if(!v)return 0;return Number(String(v).replace(/\./g,"").replace(",",".").replace(/[^\d.-]/g,""))||0}
+function nextOsNumber(){return (Math.max(0,...orders.map(o=>Number(o.os||0)))+1).toString().padStart(3,"0")}
+function loadOrders(){const saved=localStorage.getItem(STORAGE_KEY);if(saved){try{return JSON.parse(saved)}catch(e){}}
+return [
+{id:crypto.randomUUID(),os:"001",data:"2026-06-11",cliente:"Alan Dalazen",servico:"Serviço técnico executado conforme combinado com o cliente.",valor:270,status:"aberto",pagamento:"",tecnico:"Anderson",observacoes:""},
+{id:crypto.randomUUID(),os:"002",data:"2026-06-11",cliente:"Osmar",servico:"Troca de potenciômetro.",valor:80,status:"aberto",pagamento:"",tecnico:"Anderson",observacoes:""},
+{id:crypto.randomUUID(),os:"003",data:"2026-06-11",cliente:"Imperial Gráfica",servico:"Conserto de dobradeira.",valor:600,status:"aberto",pagamento:"",tecnico:"Anderson",observacoes:""},
+{id:crypto.randomUUID(),os:"004",data:"2026-06-11",cliente:"RGA",servico:"Conserto de máquina de brigadeiro.\nRegulagem de facas.\nResolução de mau contato.",valor:190,status:"aberto",pagamento:"",tecnico:"Anderson",observacoes:""},
+{id:crypto.randomUUID(),os:"005",data:"2026-06-11",cliente:"Diego Novak",servico:"Rebobinagem de transformador.",valor:250,status:"aberto",pagamento:"",tecnico:"Anderson",observacoes:""},
+{id:crypto.randomUUID(),os:"006",data:"2026-08-27",cliente:"",servico:"Conserto/troca de capacitor de placa.",valor:120,status:"aberto",pagamento:"",tecnico:"Anderson",observacoes:""},
+{id:crypto.randomUUID(),os:"007",data:"2026-08-31",cliente:"Daniel Baccin",servico:"Reparo de bomba de lubrificação.\nConserto de trafinho do drive.\nDesmontagem drive-cliq.\nMão de obra, testes de drive e motor.",valor:2740,status:"aberto",pagamento:"",tecnico:"Anderson",observacoes:"Defeitos principais estavam no eixo Z1 e Y1."},
+{id:crypto.randomUUID(),os:"008",data:"2026-09-18",cliente:"Paulo ArFlex",servico:"Limpeza de inversor.",valor:250,status:"aberto",pagamento:"",tecnico:"Anderson",observacoes:""}]}
+function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(orders))}
+function filteredOrders(){const q=document.getElementById("search").value.toLowerCase().trim(),st=document.getElementById("statusFilter").value,from=document.getElementById("dateFrom").value,to=document.getElementById("dateTo").value;return orders.filter(o=>{const text=`${o.cliente} ${o.servico} ${o.observacoes}`.toLowerCase();if(q&&!text.includes(q))return false;if(st!=="todos"&&o.status!==st)return false;if(from&&o.data<from)return false;if(to&&o.data>to)return false;return true}).sort((a,b)=>String(b.os).localeCompare(String(a.os)))}
+function render(){const list=filteredOrders(),total=list.reduce((s,o)=>s+Number(o.valor||0),0),pago=list.filter(o=>o.status==="pago").reduce((s,o)=>s+Number(o.valor||0),0),aberto=total-pago;
+document.getElementById("totalLancado").textContent=money(total);document.getElementById("totalPago").textContent=money(pago);document.getElementById("totalAberto").textContent=money(aberto);document.getElementById("ticketMedio").textContent=money(list.length?total/list.length:0);document.getElementById("qtdOs").textContent=`${list.length} ordem${list.length===1?"":"ens"}`;document.getElementById("lastUpdate").textContent=`Atualizado em ${new Date().toLocaleString("pt-BR")}`;
+document.getElementById("ordersTable").innerHTML=list.map(o=>`<tr><td><strong>${o.os}</strong></td><td>${brDate(o.data)}</td><td><strong>${esc(o.cliente||"Sem cliente")}</strong></td><td class="service-cell">${esc(o.servico||"")}${o.observacoes?`<div class="muted" style="margin-top:6px">${esc(o.observacoes)}</div>`:""}</td><td class="money">${money(o.valor)}</td><td><span class="pill ${o.status==="pago"?"paid":"open"}">${o.status==="pago"?"Pago":"Em aberto"}</span></td><td>${esc(o.pagamento||"-")}</td><td><button class="btn-small btn-green" onclick="togglePaid('${o.id}')">${o.status==="pago"?"Marcar aberto":"Marcar pago"}</button> <button class="btn-small" onclick="editOrder('${o.id}')">Editar</button> <button class="btn-small btn-gray" onclick="printOrder('${o.id}')">PDF</button> <button class="btn-small btn-red" onclick="deleteOrder('${o.id}')">Excluir</button></td></tr>`).join("");
+renderMonthly(list);renderStatus(list);persist()}
+function renderMonthly(list){const group={};list.filter(o=>o.status==="pago").forEach(o=>{const k=o.data?o.data.slice(0,7):"Sem data";group[k]=(group[k]||0)+Number(o.valor||0)});const rows=Object.entries(group).sort(([a],[b])=>a.localeCompare(b)),max=Math.max(1,...rows.map(r=>r[1])),el=document.getElementById("monthlyBars");if(!rows.length){el.innerHTML=`<div class="muted">Nenhuma OS marcada como paga ainda.</div>`;return}el.innerHTML=rows.map(([month,total])=>{const [y,m]=month.split("-");return `<div class="bar-row"><strong>${m}/${y}</strong><div class="bar-track"><div class="bar-fill" style="width:${Math.max(3,total/max*100)}%"></div></div><strong>${money(total)}</strong></div>`}).join("")}
+function renderStatus(list){const pago=list.filter(o=>o.status==="pago").reduce((s,o)=>s+Number(o.valor||0),0),aberto=list.filter(o=>o.status!=="pago").reduce((s,o)=>s+Number(o.valor||0),0),max=Math.max(1,pago,aberto);document.getElementById("statusBars").innerHTML=[["Recebido",pago],["Em aberto",aberto]].map(([l,t])=>`<div class="bar-row"><strong>${l}</strong><div class="bar-track"><div class="bar-fill" style="width:${Math.max(3,t/max*100)}%"></div></div><strong>${money(t)}</strong></div>`).join("")}
+function openModal(){document.getElementById("modalTitle").textContent="Nova Ordem de Serviço";document.getElementById("orderForm").reset();document.getElementById("editId").value="";document.getElementById("data").value=hoje();document.getElementById("tecnico").value="Anderson";document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function saveOrder(e){e.preventDefault();const id=document.getElementById("editId").value,old=orders.find(o=>o.id===id);const p={id:id||crypto.randomUUID(),os:id?old.os:nextOsNumber(),cliente:cliente.value.trim(),data:data.value,valor:parseMoney(valor.value),status:status.value,pagamento:pagamento.value,tecnico:tecnico.value.trim()||"Anderson",servico:servico.value.trim(),observacoes:observacoes.value.trim()};orders=id?orders.map(o=>o.id===id?p:o):[...orders,p];closeModal();render()}
+function editOrder(id){const o=orders.find(x=>x.id===id);if(!o)return;modalTitle.textContent=`Editar OS ${o.os}`;editId.value=o.id;cliente.value=o.cliente||"";data.value=o.data||hoje();valor.value=String(o.valor||0).replace(".",",");status.value=o.status||"aberto";pagamento.value=o.pagamento||"";tecnico.value=o.tecnico||"Anderson";servico.value=o.servico||"";observacoes.value=o.observacoes||"";modal.classList.add("show")}
+function togglePaid(id){orders=orders.map(o=>o.id!==id?o:{...o,status:o.status==="pago"?"aberto":"pago"});render()}
+function deleteOrder(id){const o=orders.find(x=>x.id===id);if(o&&confirm(`Excluir a OS ${o.os} de ${o.cliente||"sem cliente"}?`)){orders=orders.filter(x=>x.id!==id);render()}}
+function printOrder(id){const o=orders.find(x=>x.id===id);if(!o)return;printArea.innerHTML=`<div class="print-logo"><img src="logo.png" onerror="this.style.display='none'"><div><div class="print-title">ORDEM DE SERVIÇO</div><div class="print-sub">Assistência técnica em eletromecânica e eletrônica geral</div></div></div><div class="print-grid"><div><strong>Cliente:</strong> ${esc(o.cliente||"")}</div><div><strong>Data:</strong> ${brDate(o.data)}</div><div><strong>OS:</strong> ${esc(o.os)}</div><div><strong>Técnico:</strong> ${esc(o.tecnico||"Anderson")}</div><div><strong>Status:</strong> ${o.status==="pago"?"Pago":"Em aberto"}</div><div><strong>Pagamento:</strong> ${esc(o.pagamento||"-")}</div></div><h3>DESCRIÇÃO DO SERVIÇO</h3><div class="print-box">${esc(o.servico||"")}</div>${o.observacoes?`<h3>OBSERVAÇÕES</h3><div class="print-box">${esc(o.observacoes)}</div>`:""}<div class="print-value">${money(o.valor)}</div><p>Declaro que o serviço acima foi executado e entregue conforme solicitado. Recomenda-se guardar esta ordem de serviço para controle e acompanhamento do atendimento.</p><div class="signs"><div class="sign">Assinatura do Cliente</div><div class="sign">Assinatura do Técnico</div></div>`;window.print()}
+function exportCSV(){const header=["OS","Data","Cliente","Servico","Observacoes","Valor","Status","Pagamento","Tecnico"],rows=orders.map(o=>[o.os,brDate(o.data),o.cliente,o.servico,o.observacoes,String(o.valor).replace(".",","),o.status,o.pagamento,o.tecnico]);const csv=[header,...rows].map(r=>r.map(c=>`"${String(c??"").replace(/"/g,'""')}"`).join(";")).join("\n");downloadFile("ordens_servico.csv","\ufeff"+csv,"text/csv;charset=utf-8")}
+function backupJSON(){downloadFile("backup_ordens_servico.json",JSON.stringify(orders,null,2),"application/json")}
+function restoreJSON(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const imp=JSON.parse(r.result);if(!Array.isArray(imp))throw new Error();if(confirm("Importar backup e substituir as OS atuais?")){orders=imp;render()}}catch(err){alert("Arquivo JSON inválido.")}};r.readAsText(f);e.target.value=""}
+function downloadFile(name,content,type){const b=new Blob([content],{type}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u)}
+function esc(t){return String(t??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+modal.addEventListener("click",e=>{if(e.target===modal)closeModal()}); render();
+</script>
+</body>
+</html>

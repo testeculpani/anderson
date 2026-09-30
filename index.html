@@ -5,31 +5,168 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OS Anderson</title>
 <style>
-:root{--azul:#003b73;--verde:#039855;--laranja:#f79009;--vermelho:#d92d20;--bg:#f4f6f9;--card:#fff;--txt:#101828;--muted:#667085;--line:#e4e7ec}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--txt);padding-bottom:82px}header{position:sticky;top:0;z-index:5;background:linear-gradient(135deg,#06182f,#003b73);color:#fff;padding:14px;box-shadow:0 8px 24px #0002}.top{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:14px;background:white;display:grid;place-items:center;overflow:hidden;flex:none}.logo img{width:100%;height:100%;object-fit:contain;padding:4px;display:none}.logo span{font-size:24px;color:var(--azul);font-weight:900}h1{font-size:19px;margin:0}.sub{font-size:12px;color:#d6e7ff;margin:3px 0 0}.cloud{margin-left:auto;font-size:11px;font-weight:900;border-radius:99px;padding:5px 9px;background:#fff7ed;color:#b54708}.cloud.ok{background:#ecfdf3;color:#027a48}main{padding:14px;max-width:760px;margin:auto}.screen{display:none}.screen.on{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 8px 24px #10182814}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}.metric{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;box-shadow:0 8px 20px #10182810}.metric small{display:block;color:var(--muted);font-weight:800;margin-bottom:7px}.metric b{font-size:20px}h2{font-size:18px;margin:0}.rowtitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}input,select,textarea{width:100%;border:1px solid #d0d5dd;border-radius:14px;padding:12px;font-size:16px;background:white;outline:none}textarea{min-height:92px;resize:vertical}label{display:block;margin:10px 0 6px;font-size:13px;font-weight:900;color:#344054}.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;border-radius:14px;padding:12px 14px;min-height:44px;font-size:15px;font-weight:900;color:white;background:var(--azul);cursor:pointer}.btn:active{transform:scale(.98)}.green{background:var(--verde)}.orange{background:var(--laranja);color:#111827}.red{background:var(--vermelho)}.gray{background:#475467}.light{background:#eef4ff;color:var(--azul)}.small{font-size:13px;min-height:36px;padding:8px 10px;border-radius:12px}.block{width:100%}.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.os{background:white;border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:10px;box-shadow:0 6px 18px #1018280f}.oshead{display:flex;justify-content:space-between;gap:10px}.num{font-size:12px;font-weight:900;color:var(--muted)}.cli{font-size:17px;font-weight:900;margin-top:3px}.valor{font-size:18px;font-weight:900;white-space:nowrap}.serv{margin:10px 0;color:#344054;white-space:pre-wrap;font-size:14px;line-height:1.35}.pill{display:inline-flex;border-radius:99px;padding:6px 10px;font-size:12px;font-weight:900}.pago{background:#ecfdf3;color:#027a48}.aberto{background:#fff7ed;color:#b54708}.muted{color:var(--muted);font-size:13px}.empty{text-align:center;color:var(--muted);padding:28px 12px}.bar{height:12px;border-radius:99px;background:#eaecf0;overflow:hidden;margin:8px 0 12px}.fill{height:100%;background:linear-gradient(90deg,var(--azul),var(--laranja))}.monthline{display:flex;justify-content:space-between;font-size:13px;font-weight:900}nav{position:fixed;left:0;right:0;bottom:0;z-index:9;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:8px 7px max(8px,env(safe-area-inset-bottom));box-shadow:0 -8px 24px #10182814}.nav{border:0;background:white;color:#667085;font-size:11px;font-weight:900;padding:8px 3px;border-radius:13px;min-height:50px}.nav b{display:block;font-size:19px;line-height:1;margin-bottom:4px}.nav.on{background:#eef4ff;color:var(--azul)}.print{display:none}@media(min-width:680px){.grid{grid-template-columns:repeat(4,1fr)}}@media print{body{background:white;padding:0}header,main,nav{display:none!important}.print{display:block;padding:24px;font-family:Arial;color:#111827}.phead{display:flex;align-items:center;gap:12px;border-bottom:2px solid #e5e7eb;padding-bottom:14px;margin-bottom:18px}.phead img{width:70px;height:70px;object-fit:contain}.ptitle{font-size:26px;font-weight:900}.psub{color:#667085}.pgrid{display:grid;grid-template-columns:1fr 1fr;border:1px solid #d0d5dd;margin-bottom:18px}.pgrid div{padding:12px;border-bottom:1px solid #d0d5dd}.pgrid div:nth-child(odd){border-right:1px solid #d0d5dd}.pbox{border:1px solid #d0d5dd;padding:14px;min-height:110px;margin-bottom:18px;white-space:pre-wrap}.pvalor{border:1px solid #d0d5dd;background:#f2f4f7;padding:14px;font-size:26px;font-weight:900;text-align:right;margin-bottom:28px}.signs{display:grid;grid-template-columns:1fr 1fr;gap:42px;margin-top:70px}.sign{text-align:center;border-top:1px solid #111827;padding-top:8px;color:#475467}}
+:root{--azul:#003b73;--verde:#039855;--laranja:#f79009;--vermelho:#d92d20;--roxo:#6941c6;--bg:#f4f6f9;--card:#fff;--txt:#101828;--muted:#667085;--line:#e4e7ec}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--txt);padding-bottom:88px}
+header{position:sticky;top:0;z-index:5;background:linear-gradient(135deg,#06182f,#003b73);color:#fff;padding:14px;box-shadow:0 8px 24px #0002}
+.top{display:flex;gap:12px;align-items:center}
+.logo{width:48px;height:48px;border-radius:14px;background:white;display:grid;place-items:center;overflow:hidden;flex:none}
+.logo img{width:100%;height:100%;object-fit:contain;padding:4px;display:none}.logo span{font-size:24px;color:var(--azul);font-weight:900}
+h1{font-size:19px;margin:0}.sub{font-size:12px;color:#d6e7ff;margin:3px 0 0}.cloud{margin-left:auto;font-size:11px;font-weight:900;border-radius:99px;padding:5px 9px;background:#fff7ed;color:#b54708}.cloud.ok{background:#ecfdf3;color:#027a48}
+main{padding:14px;max-width:760px;margin:auto}.screen{display:none}.screen.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 8px 24px #10182814}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.metric{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;box-shadow:0 8px 20px #10182810}.metric small{display:block;color:var(--muted);font-weight:800;margin-bottom:7px}.metric b{font-size:20px}
+h2{font-size:18px;margin:0}.rowtitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+input,select,textarea{width:100%;border:1px solid #d0d5dd;border-radius:14px;padding:12px;font-size:16px;background:white;outline:none}textarea{min-height:92px;resize:vertical}label{display:block;margin:10px 0 6px;font-size:13px;font-weight:900;color:#344054}.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{border:0;border-radius:14px;padding:12px 14px;min-height:44px;font-size:15px;font-weight:900;color:white;background:var(--azul);cursor:pointer}.btn:active{transform:scale(.98)}.green{background:var(--verde)}.orange{background:var(--laranja);color:#111827}.red{background:var(--vermelho)}.gray{background:#475467}.light{background:#eef4ff;color:var(--azul)}.purple{background:var(--roxo)}.small{font-size:13px;min-height:36px;padding:8px 10px;border-radius:12px}.block{width:100%}.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.os{background:white;border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:10px;box-shadow:0 6px 18px #1018280f}.oshead{display:flex;justify-content:space-between;gap:10px}.num{font-size:12px;font-weight:900;color:var(--muted)}.cli{font-size:17px;font-weight:900;margin-top:3px}.valor{font-size:18px;font-weight:900;white-space:nowrap;text-align:right}.lucro{font-size:12px;color:var(--muted);margin-top:4px}.serv{margin:10px 0;color:#344054;white-space:pre-wrap;font-size:14px;line-height:1.35}
+.pill{display:inline-flex;border-radius:99px;padding:6px 10px;font-size:12px;font-weight:900;margin-right:5px;margin-bottom:5px}.pago{background:#ecfdf3;color:#027a48}.aberto{background:#fff7ed;color:#b54708}.comissao-ok{background:#f4ebff;color:#6941c6}.comissao-nao{background:#fff1f3;color:#c01048}.muted{color:var(--muted);font-size:13px}.empty{text-align:center;color:var(--muted);padding:28px 12px}
+.bar{height:12px;border-radius:99px;background:#eaecf0;overflow:hidden;margin:8px 0 12px}.fill{height:100%;background:linear-gradient(90deg,var(--azul),var(--laranja))}.fill2{height:100%;background:linear-gradient(90deg,var(--roxo),var(--verde))}.monthline{display:flex;justify-content:space-between;font-size:13px;font-weight:900;gap:8px}
+.report-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:10px 0}.report-row:last-child{border-bottom:0}.report-row span:first-child{color:#344054;font-weight:800}.report-row b{text-align:right}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:9;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 4px max(8px,env(safe-area-inset-bottom));box-shadow:0 -8px 24px #10182814}.nav{border:0;background:white;color:#667085;font-size:10px;font-weight:900;padding:8px 2px;border-radius:13px;min-height:50px}.nav b{display:block;font-size:18px;line-height:1;margin-bottom:4px}.nav.on{background:#eef4ff;color:var(--azul)}
+.print{display:none}
+@media(min-width:680px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media print{body{background:white;padding:0}header,main,nav{display:none!important}.print{display:block;padding:24px;font-family:Arial;color:#111827}.phead{display:flex;align-items:center;gap:12px;border-bottom:2px solid #e5e7eb;padding-bottom:14px;margin-bottom:18px}.phead img{width:70px;height:70px;object-fit:contain}.ptitle{font-size:26px;font-weight:900}.psub{color:#667085}.pgrid{display:grid;grid-template-columns:1fr 1fr;border:1px solid #d0d5dd;margin-bottom:18px}.pgrid div{padding:12px;border-bottom:1px solid #d0d5dd}.pgrid div:nth-child(odd){border-right:1px solid #d0d5dd}.pbox{border:1px solid #d0d5dd;padding:14px;min-height:110px;margin-bottom:18px;white-space:pre-wrap}.pvalor{border:1px solid #d0d5dd;background:#f2f4f7;padding:14px;font-size:26px;font-weight:900;text-align:right;margin-bottom:28px}.signs{display:grid;grid-template-columns:1fr 1fr;gap:42px;margin-top:70px}.sign{text-align:center;border-top:1px solid #111827;padding-top:8px;color:#475467}}
 </style>
 </head>
 <body>
-<header><div class="top"><div class="logo"><img src="logo.png" onload="this.style.display='block';this.nextElementSibling.style.display='none'"><span>⚡</span></div><div><h1>Ordens de Serviço</h1><p class="sub">Controle online no Firebase</p></div><span id="cloud" class="cloud">conectando</span></div></header>
+<header>
+  <div class="top">
+    <div class="logo"><img src="logo.png" onload="this.style.display='block';this.nextElementSibling.style.display='none'"><span>⚡</span></div>
+    <div><h1>Ordens de Serviço</h1><p class="sub">Firebase com login • custo, lucro e comissão</p></div>
+    <span id="cloud" class="cloud">conectando</span>
+  </div>
+</header>
+
 <main>
-<section id="home" class="screen on"><div class="grid"><div class="metric"><small>Recebido</small><b id="mRec">R$ 0,00</b></div><div class="metric"><small>Em aberto</small><b id="mAberto">R$ 0,00</b></div><div class="metric"><small>Total</small><b id="mTotal">R$ 0,00</b></div><div class="metric"><small>OS</small><b id="mQtd">0</b></div></div><div class="card"><div class="rowtitle"><h2>Atalhos</h2></div><div class="quick"><button class="btn green" onclick="nova()">+ Nova OS</button><button class="btn light" onclick="tela('ordens')">Ver ordens</button><button class="btn orange" onclick="tela('receber')">Receber</button><button class="btn gray" onclick="backup()">Backup</button></div></div><div class="card"><div class="rowtitle"><h2>Entradas por mês</h2><span class="muted">pagas</span></div><div id="meses"></div></div></section>
-<section id="ordens" class="screen"><div class="card"><div class="rowtitle"><h2>Ordens</h2><button class="btn small green" onclick="nova()">+ Nova</button></div><input id="busca" placeholder="Buscar cliente ou serviço" oninput="render()"><div class="row2"><div><label>Status</label><select id="fStatus" onchange="render()"><option value="todos">Todos</option><option value="aberto">Em aberto</option><option value="pago">Pago</option></select></div><div><label>Mês</label><input id="fMes" type="month" onchange="render()"></div></div></div><div id="lista"></div></section>
-<section id="nova" class="screen"><form class="card" onsubmit="salvarOS(event)"><div class="rowtitle"><h2 id="tituloForm">Nova OS</h2><button type="button" class="btn small gray" onclick="limpar()">Limpar</button></div><input id="editId" type="hidden"><label>Cliente</label><input id="cliente" required placeholder="Nome do cliente"><div class="row2"><div><label>Data</label><input id="data" type="date" required></div><div><label>Valor</label><input id="valor" required inputmode="decimal" placeholder="120,00"></div></div><label>Serviço</label><textarea id="servico" required placeholder="Ex: Limpeza de inversor"></textarea><label>Observações</label><textarea id="obs" placeholder="Opcional"></textarea><div class="row2"><div><label>Status</label><select id="status"><option value="aberto">Em aberto</option><option value="pago">Pago</option></select></div><div><label>Pagamento</label><select id="pagamento"><option value="">Não informado</option><option>Pix</option><option>Dinheiro</option><option>Cartão</option><option>Transferência</option><option>Boleto</option></select></div></div><label>Técnico</label><input id="tecnico" value="Anderson"><div class="actions"><button class="btn green block">Salvar OS</button></div></form></section>
-<section id="receber" class="screen"><div class="card"><div class="rowtitle"><h2>A receber</h2><span id="txtReceber" class="muted">R$ 0,00</span></div><p class="muted" style="margin-top:0">Toque em “Marcar pago” quando o dinheiro entrar.</p></div><div id="listaReceber"></div></section>
+  <section id="home" class="screen on">
+    <div class="grid">
+      <div class="metric"><small>Recebido</small><b id="mRec">R$ 0,00</b></div>
+      <div class="metric"><small>Lucro recebido</small><b id="mLucro">R$ 0,00</b></div>
+      <div class="metric"><small>Comissão pendente</small><b id="mComissaoPendente">R$ 0,00</b></div>
+      <div class="metric"><small>OS</small><b id="mQtd">0</b></div>
+    </div>
+
+    <div class="card">
+      <div class="rowtitle"><h2>Atalhos</h2></div>
+      <div class="quick">
+        <button class="btn green" onclick="nova()">+ Nova OS</button>
+        <button class="btn light" onclick="tela('ordens')">Ver ordens</button>
+        <button class="btn orange" onclick="tela('receber')">Receber</button>
+        <button class="btn purple" onclick="tela('relatorios')">Relatórios</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="rowtitle"><h2>Resumo geral</h2></div>
+      <p class="muted" style="margin:0">Total lançado: <b id="mTotal">R$ 0,00</b></p>
+      <p class="muted" style="margin:8px 0 0">Custo lançado: <b id="mCusto">R$ 0,00</b></p>
+      <p class="muted" style="margin:8px 0 0">Lucro lançado: <b id="mLucroTotal">R$ 0,00</b></p>
+      <p class="muted" style="margin:8px 0 0">Em aberto: <b id="mAberto">R$ 0,00</b></p>
+    </div>
+
+    <div class="card">
+      <div class="rowtitle"><h2>Entradas por mês</h2><span class="muted">pagas</span></div>
+      <div id="meses"></div>
+    </div>
+  </section>
+
+  <section id="ordens" class="screen">
+    <div class="card">
+      <div class="rowtitle"><h2>Ordens</h2><button class="btn small green" onclick="nova()">+ Nova</button></div>
+      <input id="busca" placeholder="Buscar cliente ou serviço" oninput="render()">
+      <div class="row2">
+        <div><label>Status</label><select id="fStatus" onchange="render()"><option value="todos">Todos</option><option value="aberto">Em aberto</option><option value="pago">Pago</option></select></div>
+        <div><label>Mês</label><input id="fMes" type="month" onchange="render()"></div>
+      </div>
+    </div>
+    <div id="lista"></div>
+  </section>
+
+  <section id="nova" class="screen">
+    <form class="card" onsubmit="salvarOS(event)">
+      <div class="rowtitle"><h2 id="tituloForm">Nova OS</h2><button type="button" class="btn small gray" onclick="limpar()">Limpar</button></div>
+      <input id="editId" type="hidden">
+
+      <label>Cliente</label><input id="cliente" required placeholder="Nome do cliente">
+
+      <div class="row2">
+        <div><label>Data</label><input id="data" type="date" required></div>
+        <div><label>Valor cobrado</label><input id="valor" required inputmode="decimal" placeholder="120,00"></div>
+      </div>
+
+      <div class="row2">
+        <div><label>Custo</label><input id="custo" inputmode="decimal" placeholder="0,00"></div>
+        <div><label>Lucro</label><input id="lucroPreview" readonly placeholder="automático"></div>
+      </div>
+
+      <label>Minha comissão</label>
+      <input id="comissaoValor" inputmode="decimal" placeholder="Ex: 50,00">
+
+      <label>Serviço</label><textarea id="servico" required placeholder="Ex: Limpeza de inversor"></textarea>
+      <label>Observações</label><textarea id="obs" placeholder="Opcional"></textarea>
+
+      <div class="row2">
+        <div><label>Status</label><select id="status"><option value="aberto">Em aberto</option><option value="pago">Pago</option></select></div>
+        <div><label>Pagamento</label><select id="pagamento"><option value="">Não informado</option><option>Pix</option><option>Dinheiro</option><option>Cartão</option><option>Transferência</option><option>Boleto</option></select></div>
+      </div>
+
+      <label>Técnico</label><input id="tecnico" value="Anderson">
+      <div class="actions"><button class="btn green block">Salvar OS</button></div>
+    </form>
+  </section>
+
+  <section id="receber" class="screen">
+    <div class="card">
+      <div class="rowtitle"><h2>A receber</h2><span id="txtReceber" class="muted">R$ 0,00</span></div>
+      <p class="muted" style="margin-top:0">Toque em “Marcar pago” quando o dinheiro entrar.</p>
+    </div>
+    <div id="listaReceber"></div>
+  </section>
+
+  <section id="relatorios" class="screen">
+    <div class="card">
+      <div class="rowtitle"><h2>Relatórios</h2><button class="btn small gray" onclick="backup()">Backup</button></div>
+      <div class="report-row"><span>Total lançado</span><b id="rTotal">R$ 0,00</b></div>
+      <div class="report-row"><span>Total recebido</span><b id="rRecebido">R$ 0,00</b></div>
+      <div class="report-row"><span>Total em aberto</span><b id="rAberto">R$ 0,00</b></div>
+      <div class="report-row"><span>Custo lançado</span><b id="rCusto">R$ 0,00</b></div>
+      <div class="report-row"><span>Lucro lançado</span><b id="rLucro">R$ 0,00</b></div>
+      <div class="report-row"><span>Minha comissão total</span><b id="rComissaoTotal">R$ 0,00</b></div>
+      <div class="report-row"><span>Comissão já retirada</span><b id="rComissaoRetirada">R$ 0,00</b></div>
+      <div class="report-row"><span>Comissão pendente</span><b id="rComissaoPendente">R$ 0,00</b></div>
+    </div>
+
+    <div class="card">
+      <div class="rowtitle"><h2>Resumo mensal</h2><span class="muted">por data da OS</span></div>
+      <div id="relatorioMeses"></div>
+    </div>
+  </section>
 </main>
-<nav><button id="n-home" class="nav on" onclick="tela('home')"><b>⌂</b>Início</button><button id="n-ordens" class="nav" onclick="tela('ordens')"><b>☰</b>Ordens</button><button id="n-nova" class="nav" onclick="nova()"><b>＋</b>Nova</button><button id="n-receber" class="nav" onclick="tela('receber')"><b>R$</b>Receber</button></nav>
+
+<nav>
+  <button id="n-home" class="nav on" onclick="tela('home')"><b>⌂</b>Início</button>
+  <button id="n-ordens" class="nav" onclick="tela('ordens')"><b>☰</b>Ordens</button>
+  <button id="n-nova" class="nav" onclick="nova()"><b>＋</b>Nova</button>
+  <button id="n-receber" class="nav" onclick="tela('receber')"><b>R$</b>Receber</button>
+  <button id="n-relatorios" class="nav" onclick="tela('relatorios')"><b>▣</b>Relat.</button>
+</nav>
+
 <section id="printArea" class="print"></section>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-const el = (id) => document.getElementById(id);
+const $ = (id) => document.getElementById(id);
 const E = {
-  cloud:el("cloud"), meses:el("meses"), lista:el("lista"), listaReceber:el("listaReceber"), printArea:el("printArea"),
-  mRec:el("mRec"), mAberto:el("mAberto"), mTotal:el("mTotal"), mQtd:el("mQtd"), txtReceber:el("txtReceber"),
-  busca:el("busca"), fStatus:el("fStatus"), fMes:el("fMes"), editId:el("editId"), tituloForm:el("tituloForm"),
-  cliente:el("cliente"), data:el("data"), valor:el("valor"), servico:el("servico"), obs:el("obs"), status:el("status"), pagamento:el("pagamento"), tecnico:el("tecnico")
+  cloud:$("cloud"), meses:$("meses"), lista:$("lista"), listaReceber:$("listaReceber"), printArea:$("printArea"),
+  mRec:$("mRec"), mLucro:$("mLucro"), mComissaoPendente:$("mComissaoPendente"), mAberto:$("mAberto"), mQtd:$("mQtd"), mTotal:$("mTotal"), mCusto:$("mCusto"), mLucroTotal:$("mLucroTotal"), txtReceber:$("txtReceber"),
+  rTotal:$("rTotal"), rRecebido:$("rRecebido"), rAberto:$("rAberto"), rCusto:$("rCusto"), rLucro:$("rLucro"), rComissaoTotal:$("rComissaoTotal"), rComissaoRetirada:$("rComissaoRetirada"), rComissaoPendente:$("rComissaoPendente"), relatorioMeses:$("relatorioMeses"),
+  busca:$("busca"), fStatus:$("fStatus"), fMes:$("fMes"), editId:$("editId"), tituloForm:$("tituloForm"), cliente:$("cliente"), data:$("data"), valor:$("valor"), custo:$("custo"), lucroPreview:$("lucroPreview"), comissaoValor:$("comissaoValor"),
+  servico:$("servico"), obs:$("obs"), status:$("status"), pagamento:$("pagamento"), tecnico:$("tecnico")
 };
 
 const firebaseConfig = {
@@ -45,59 +182,342 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const col = collection(db, "ordens");
+
 let ordens = [];
 let carregou = false;
 
-function cloudStatus(txt, ok=false){E.cloud.textContent=txt;E.cloud.classList.toggle("ok", ok);}
+function cloudStatus(txt, ok=false){ E.cloud.textContent = txt; E.cloud.classList.toggle("ok", ok); }
 
-signInAnonymously(auth).catch(err=>{cloudStatus("sem login");alert("Erro no login anônimo. Ative Authentication > Sign-in method > Anonymous. Detalhe: "+err.message);});
-
-onAuthStateChanged(auth, user=>{
-  if(!user) return;
-  cloudStatus("online", true);
-  const q = query(col, orderBy("os", "asc"));
-  onSnapshot(q, snap=>{ordens=snap.docs.map(d=>({id:d.id,...d.data()}));carregou=true;render();}, err=>{cloudStatus("erro");alert("Erro ao ler Firestore. Confira as regras e se o Firestore foi criado. Detalhe: "+err.message);});
+signInAnonymously(auth).catch(err => {
+  cloudStatus("sem login");
+  alert("Erro no login anônimo. Ative Authentication > Sign-in method > Anonymous. Detalhe: " + err.message);
 });
 
-function uid(){return crypto.randomUUID ? crypto.randomUUID() : String(Date.now())+Math.random().toString(16).slice(2);}
-function dinheiro(v){return Number(v||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});}
-function parseValor(v){return Number(String(v||"").replace(/\./g,"").replace(",",".").replace(/[^\d.-]/g,""))||0;}
-function dataBR(s){if(!s)return"";const [a,m,d]=String(s).split("-");return `${d}/${m}/${a}`;}
-function proximaOS(){const maior=Math.max(0,...ordens.map(o=>Number(o.os||0)));return String(maior+1).padStart(3,"0");}
+onAuthStateChanged(auth, user => {
+  if(!user) return;
+  cloudStatus("online", true);
 
-function tela(nome){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));el(nome).classList.add("on");document.querySelectorAll(".nav").forEach(n=>n.classList.remove("on"));const nav=el("n-"+nome);if(nav)nav.classList.add("on");scrollTo({top:0,behavior:"smooth"});render();}
-function nova(){limpar();tela("nova");}
-function limpar(){E.editId.value="";E.tituloForm.textContent="Nova OS";E.cliente.value="";E.data.value=new Date().toISOString().slice(0,10);E.valor.value="";E.servico.value="";E.obs.value="";E.status.value="aberto";E.pagamento.value="";E.tecnico.value="Anderson";}
+  const q = query(col, orderBy("os", "asc"));
+  onSnapshot(q, snap => {
+    ordens = snap.docs.map(d => ({id:d.id, ...d.data()}));
+    carregou = true;
+    render();
+  }, err => {
+    cloudStatus("erro");
+    alert("Erro ao ler Firestore. Confira as rules e se o Firestore foi criado. Detalhe: " + err.message);
+  });
+});
+
+function uid(){ return crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2); }
+function dinheiro(v){ return Number(v || 0).toLocaleString("pt-BR", {style:"currency", currency:"BRL"}); }
+function parseValor(v){ return Number(String(v || "").replace(/\./g,"").replace(",",".").replace(/[^\d.-]/g,"")) || 0; }
+function dataBR(s){ if(!s) return ""; const [a,m,d] = String(s).split("-"); return `${d}/${m}/${a}`; }
+function proximaOS(){ const maior = Math.max(0, ...ordens.map(o => Number(o.os || 0))); return String(maior + 1).padStart(3, "0"); }
+function lucro(o){ return Number(o.valor || 0) - Number(o.custo || 0); }
+function comissao(o){ return Number(o.comissaoValor || 0); }
+
+function atualizarLucroPreview(){
+  E.lucroPreview.value = dinheiro(parseValor(E.valor.value) - parseValor(E.custo.value));
+}
+E.valor.addEventListener("input", atualizarLucroPreview);
+E.custo.addEventListener("input", atualizarLucroPreview);
+
+function tela(nome){
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("on"));
+  $(nome).classList.add("on");
+  document.querySelectorAll(".nav").forEach(n => n.classList.remove("on"));
+  const nav = $("n-" + nome); if(nav) nav.classList.add("on");
+  scrollTo({top:0, behavior:"smooth"});
+  render();
+}
+
+function nova(){ limpar(); tela("nova"); }
+
+function limpar(){
+  E.editId.value = "";
+  E.tituloForm.textContent = "Nova OS";
+  E.cliente.value = "";
+  E.data.value = new Date().toISOString().slice(0,10);
+  E.valor.value = "";
+  E.custo.value = "";
+  E.lucroPreview.value = "";
+  E.comissaoValor.value = "";
+  E.servico.value = "";
+  E.obs.value = "";
+  E.status.value = "aberto";
+  E.pagamento.value = "";
+  E.tecnico.value = "Anderson";
+}
 
 async function salvarOS(e){
   e.preventDefault();
   try{
-    const idDoc=E.editId.value||uid();
-    const antiga=ordens.find(o=>o.id===E.editId.value);
-    const item={os:E.editId.value&&antiga?antiga.os:proximaOS(),data:E.data.value,cliente:E.cliente.value.trim(),valor:parseValor(E.valor.value),servico:E.servico.value.trim(),obs:E.obs.value.trim(),status:E.status.value,pagamento:E.pagamento.value,tecnico:E.tecnico.value.trim()||"Anderson",atualizadoEm:serverTimestamp()};
-    if(!E.editId.value)item.criadoEm=serverTimestamp();
-    await setDoc(doc(db,"ordens",idDoc),item,{merge:true});
-    limpar();tela("ordens");
-  }catch(err){alert("Não salvou a OS. Erro: "+err.message);console.error(err);}
+    const idDoc = E.editId.value || uid();
+    const antiga = ordens.find(o => o.id === E.editId.value);
+
+    const item = {
+      os: E.editId.value && antiga ? antiga.os : proximaOS(),
+      data: E.data.value,
+      cliente: E.cliente.value.trim(),
+      valor: parseValor(E.valor.value),
+      custo: parseValor(E.custo.value),
+      comissaoValor: parseValor(E.comissaoValor.value),
+      comissaoRecebida: antiga?.comissaoRecebida || false,
+      servico: E.servico.value.trim(),
+      obs: E.obs.value.trim(),
+      status: E.status.value,
+      pagamento: E.pagamento.value,
+      tecnico: E.tecnico.value.trim() || "Anderson",
+      atualizadoEm: serverTimestamp()
+    };
+
+    if(!E.editId.value) item.criadoEm = serverTimestamp();
+
+    await setDoc(doc(db, "ordens", idDoc), item, {merge:true});
+    limpar();
+    tela("ordens");
+  }catch(err){
+    alert("Não salvou a OS. Erro: " + err.message);
+    console.error(err);
+  }
 }
 
-function filtro(){const q=(E.busca.value||"").toLowerCase().trim();const st=E.fStatus.value||"todos";const mes=E.fMes.value||"";return ordens.filter(o=>{const texto=`${o.cliente||""} ${o.servico||""} ${o.obs||""}`.toLowerCase();if(q&&!texto.includes(q))return false;if(st!=="todos"&&o.status!==st)return false;if(mes&&!String(o.data||"").startsWith(mes))return false;return true;}).sort((a,b)=>String(b.os).localeCompare(String(a.os)));}
+function filtro(){
+  const q = (E.busca.value || "").toLowerCase().trim();
+  const st = E.fStatus.value || "todos";
+  const mes = E.fMes.value || "";
+  return ordens.filter(o => {
+    const texto = `${o.cliente || ""} ${o.servico || ""} ${o.obs || ""}`.toLowerCase();
+    if(q && !texto.includes(q)) return false;
+    if(st !== "todos" && o.status !== st) return false;
+    if(mes && !String(o.data || "").startsWith(mes)) return false;
+    return true;
+  }).sort((a,b) => String(b.os).localeCompare(String(a.os)));
+}
 
-function render(){const total=ordens.reduce((s,o)=>s+Number(o.valor||0),0);const recebido=ordens.filter(o=>o.status==="pago").reduce((s,o)=>s+Number(o.valor||0),0);const aberto=total-recebido;E.mRec.textContent=dinheiro(recebido);E.mAberto.textContent=dinheiro(aberto);E.mTotal.textContent=dinheiro(total);E.mQtd.textContent=ordens.length;E.txtReceber.textContent=dinheiro(aberto);renderMeses();renderLista();renderReceber();}
-function renderMeses(){if(!carregou){E.meses.innerHTML='<div class="empty">Carregando...</div>';return;}const grupo={};ordens.filter(o=>o.status==="pago").forEach(o=>{const k=String(o.data||"").slice(0,7)||"Sem data";grupo[k]=(grupo[k]||0)+Number(o.valor||0);});const linhas=Object.entries(grupo).sort(([a],[b])=>a.localeCompare(b));if(!linhas.length){E.meses.innerHTML='<div class="empty">Nenhuma OS paga ainda.</div>';return;}const max=Math.max(1,...linhas.map(x=>x[1]));E.meses.innerHTML=linhas.map(([mes,total])=>{const rotulo=mes.includes("-")?mes.split("-").reverse().join("/"):mes;const pct=Math.max(5,total/max*100);return `<div><div class="monthline"><span>${rotulo}</span><span>${dinheiro(total)}</span></div><div class="bar"><div class="fill" style="width:${pct}%"></div></div></div>`;}).join("");}
-function renderLista(){const listaOrdens=filtro();if(!carregou){E.lista.innerHTML='<div class="empty">Carregando ordens...</div>';return;}if(!listaOrdens.length){E.lista.innerHTML='<div class="empty">Nenhuma OS encontrada.</div>';return;}E.lista.innerHTML=listaOrdens.map(card).join("");}
-function renderReceber(){const abertos=ordens.filter(o=>o.status!=="pago").sort((a,b)=>String(b.os).localeCompare(String(a.os)));if(!carregou){E.listaReceber.innerHTML='<div class="empty">Carregando...</div>';return;}if(!abertos.length){E.listaReceber.innerHTML='<div class="empty">Nada em aberto. Tudo pago.</div>';return;}E.listaReceber.innerHTML=abertos.map(card).join("");}
+function totais(){
+  const total = ordens.reduce((s,o)=>s+Number(o.valor||0),0);
+  const custoTotal = ordens.reduce((s,o)=>s+Number(o.custo||0),0);
+  const recebido = ordens.filter(o=>o.status==="pago").reduce((s,o)=>s+Number(o.valor||0),0);
+  const custoRecebido = ordens.filter(o=>o.status==="pago").reduce((s,o)=>s+Number(o.custo||0),0);
+  const aberto = ordens.filter(o=>o.status!=="pago").reduce((s,o)=>s+Number(o.valor||0),0);
+  const comissaoTotal = ordens.reduce((s,o)=>s+comissao(o),0);
+  const comissaoRetirada = ordens.filter(o=>o.comissaoRecebida).reduce((s,o)=>s+comissao(o),0);
+  const comissaoPendente = ordens.filter(o=>!o.comissaoRecebida).reduce((s,o)=>s+comissao(o),0);
+  return {total,custoTotal,recebido,custoRecebido,aberto,comissaoTotal,comissaoRetirada,comissaoPendente};
+}
 
-function card(o){return `<div class="os"><div class="oshead"><div><div class="num">OS ${esc(o.os)} • ${dataBR(o.data)}</div><div class="cli">${esc(o.cliente||"Sem cliente")}</div></div><div class="valor">${dinheiro(o.valor)}</div></div><div class="serv">${esc(o.servico||"")}${o.obs?"\n\nObs: "+esc(o.obs):""}</div><span class="pill ${o.status}">${o.status==="pago"?"Pago":"Em aberto"}</span>${o.pagamento?`<span class="muted"> • ${esc(o.pagamento)}</span>`:""}<div class="actions"><button class="btn small green" onclick="marcarPago('${o.id}')">${o.status==="pago"?"Reabrir":"Marcar pago"}</button><button class="btn small light" onclick="editar('${o.id}')">Editar</button><button class="btn small gray" onclick="imprimir('${o.id}')">PDF</button><button class="btn small red" onclick="excluir('${o.id}')">Excluir</button></div></div>`;}
-async function marcarPago(id){try{const o=ordens.find(x=>x.id===id);if(!o)return;await setDoc(doc(db,"ordens",id),{status:o.status==="pago"?"aberto":"pago",atualizadoEm:serverTimestamp()},{merge:true});}catch(err){alert("Erro ao alterar status: "+err.message);}}
-function editar(id){const o=ordens.find(x=>x.id===id);if(!o)return;E.editId.value=o.id;E.tituloForm.textContent="Editar OS "+o.os;E.cliente.value=o.cliente||"";E.data.value=o.data||new Date().toISOString().slice(0,10);E.valor.value=String(o.valor||"").replace(".",",");E.servico.value=o.servico||"";E.obs.value=o.obs||"";E.status.value=o.status||"aberto";E.pagamento.value=o.pagamento||"";E.tecnico.value=o.tecnico||"Anderson";tela("nova");}
-async function excluir(id){try{const o=ordens.find(x=>x.id===id);if(!o)return;if(confirm(`Excluir OS ${o.os} - ${o.cliente||"Sem cliente"}?`)){await deleteDoc(doc(db,"ordens",id));}}catch(err){alert("Erro ao excluir: "+err.message);}}
-function imprimir(id){const o=ordens.find(x=>x.id===id);if(!o)return;E.printArea.innerHTML=`<div class="phead"><img src="logo.png" onerror="this.style.display='none'"><div><div class="ptitle">ORDEM DE SERVIÇO</div><div class="psub">Assistência técnica em eletromecânica e eletrônica geral</div></div></div><div class="pgrid"><div><strong>Cliente:</strong> ${esc(o.cliente||"")}</div><div><strong>Data:</strong> ${dataBR(o.data)}</div><div><strong>OS:</strong> ${esc(o.os)}</div><div><strong>Técnico:</strong> ${esc(o.tecnico||"Anderson")}</div><div><strong>Status:</strong> ${o.status==="pago"?"Pago":"Em aberto"}</div><div><strong>Pagamento:</strong> ${esc(o.pagamento||"-")}</div></div><h3>DESCRIÇÃO DO SERVIÇO</h3><div class="pbox">${esc(o.servico||"")}</div>${o.obs?`<h3>OBSERVAÇÕES</h3><div class="pbox">${esc(o.obs)}</div>`:""}<div class="pvalor">${dinheiro(o.valor)}</div><p>Declaro que o serviço acima foi executado e entregue conforme solicitado.</p><div class="signs"><div class="sign">Assinatura do Cliente</div><div class="sign">Assinatura do Técnico</div></div>`;window.print();}
-function backup(){const blob=new Blob([JSON.stringify(ordens,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="backup_ordens_servico.json";a.click();URL.revokeObjectURL(url);}
-function esc(t){return String(t??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");}
+function render(){
+  const t = totais();
 
-window.tela=tela;window.nova=nova;window.limpar=limpar;window.salvarOS=salvarOS;window.marcarPago=marcarPago;window.editar=editar;window.excluir=excluir;window.imprimir=imprimir;window.backup=backup;window.render=render;
-limpar();render();
+  E.mRec.textContent = dinheiro(t.recebido);
+  E.mLucro.textContent = dinheiro(t.recebido - t.custoRecebido);
+  E.mComissaoPendente.textContent = dinheiro(t.comissaoPendente);
+  E.mAberto.textContent = dinheiro(t.aberto);
+  E.mQtd.textContent = ordens.length;
+  E.mTotal.textContent = dinheiro(t.total);
+  E.mCusto.textContent = dinheiro(t.custoTotal);
+  E.mLucroTotal.textContent = dinheiro(t.total - t.custoTotal);
+  E.txtReceber.textContent = dinheiro(t.aberto);
+
+  E.rTotal.textContent = dinheiro(t.total);
+  E.rRecebido.textContent = dinheiro(t.recebido);
+  E.rAberto.textContent = dinheiro(t.aberto);
+  E.rCusto.textContent = dinheiro(t.custoTotal);
+  E.rLucro.textContent = dinheiro(t.total - t.custoTotal);
+  E.rComissaoTotal.textContent = dinheiro(t.comissaoTotal);
+  E.rComissaoRetirada.textContent = dinheiro(t.comissaoRetirada);
+  E.rComissaoPendente.textContent = dinheiro(t.comissaoPendente);
+
+  renderMeses();
+  renderLista();
+  renderReceber();
+  renderRelatorioMeses();
+}
+
+function renderMeses(){
+  if(!carregou){ E.meses.innerHTML = '<div class="empty">Carregando...</div>'; return; }
+  const grupo = {};
+  ordens.filter(o=>o.status==="pago").forEach(o => {
+    const k = String(o.data || "").slice(0,7) || "Sem data";
+    if(!grupo[k]) grupo[k] = {valor:0, custo:0};
+    grupo[k].valor += Number(o.valor || 0);
+    grupo[k].custo += Number(o.custo || 0);
+  });
+  const linhas = Object.entries(grupo).sort(([a],[b])=>a.localeCompare(b));
+  if(!linhas.length){ E.meses.innerHTML = '<div class="empty">Nenhuma OS paga ainda.</div>'; return; }
+  const max = Math.max(1, ...linhas.map(x=>x[1].valor));
+  E.meses.innerHTML = linhas.map(([mes,tot]) => {
+    const rotulo = mes.includes("-") ? mes.split("-").reverse().join("/") : mes;
+    const pct = Math.max(5, tot.valor / max * 100);
+    return `<div><div class="monthline"><span>${rotulo}</span><span>${dinheiro(tot.valor)} • lucro ${dinheiro(tot.valor - tot.custo)}</span></div><div class="bar"><div class="fill" style="width:${pct}%"></div></div></div>`;
+  }).join("");
+}
+
+function renderRelatorioMeses(){
+  if(!carregou){ E.relatorioMeses.innerHTML = '<div class="empty">Carregando...</div>'; return; }
+  const grupo = {};
+  ordens.forEach(o => {
+    const k = String(o.data || "").slice(0,7) || "Sem data";
+    if(!grupo[k]) grupo[k] = {valor:0, custo:0, recebido:0, comissao:0, comissaoRetirada:0};
+    grupo[k].valor += Number(o.valor || 0);
+    grupo[k].custo += Number(o.custo || 0);
+    grupo[k].comissao += comissao(o);
+    if(o.status === "pago") grupo[k].recebido += Number(o.valor || 0);
+    if(o.comissaoRecebida) grupo[k].comissaoRetirada += comissao(o);
+  });
+
+  const linhas = Object.entries(grupo).sort(([a],[b])=>b.localeCompare(a));
+  if(!linhas.length){ E.relatorioMeses.innerHTML = '<div class="empty">Nenhum lançamento ainda.</div>'; return; }
+
+  E.relatorioMeses.innerHTML = linhas.map(([mes,t]) => {
+    const rotulo = mes.includes("-") ? mes.split("-").reverse().join("/") : mes;
+    return `<div class="os">
+      <div class="oshead">
+        <div><div class="num">Mês</div><div class="cli">${rotulo}</div></div>
+        <div class="valor">${dinheiro(t.valor)}<div class="lucro">Lucro ${dinheiro(t.valor - t.custo)}</div></div>
+      </div>
+      <div class="report-row"><span>Recebido</span><b>${dinheiro(t.recebido)}</b></div>
+      <div class="report-row"><span>Custo</span><b>${dinheiro(t.custo)}</b></div>
+      <div class="report-row"><span>Comissão total</span><b>${dinheiro(t.comissao)}</b></div>
+      <div class="report-row"><span>Comissão retirada</span><b>${dinheiro(t.comissaoRetirada)}</b></div>
+      <div class="report-row"><span>Comissão pendente</span><b>${dinheiro(t.comissao - t.comissaoRetirada)}</b></div>
+    </div>`;
+  }).join("");
+}
+
+function renderLista(){
+  const listaOrdens = filtro();
+  if(!carregou){ E.lista.innerHTML = '<div class="empty">Carregando ordens...</div>'; return; }
+  if(!listaOrdens.length){ E.lista.innerHTML = '<div class="empty">Nenhuma OS encontrada.</div>'; return; }
+  E.lista.innerHTML = listaOrdens.map(card).join("");
+}
+
+function renderReceber(){
+  const abertos = ordens.filter(o=>o.status!=="pago").sort((a,b)=>String(b.os).localeCompare(String(a.os)));
+  if(!carregou){ E.listaReceber.innerHTML = '<div class="empty">Carregando...</div>'; return; }
+  if(!abertos.length){ E.listaReceber.innerHTML = '<div class="empty">Nada em aberto. Tudo pago.</div>'; return; }
+  E.listaReceber.innerHTML = abertos.map(card).join("");
+}
+
+function card(o){
+  const comValor = comissao(o);
+  const textoComissao = o.comissaoRecebida ? "Comissão retirada" : "Comissão pendente";
+  const classeComissao = o.comissaoRecebida ? "comissao-ok" : "comissao-nao";
+
+  return `<div class="os">
+    <div class="oshead">
+      <div><div class="num">OS ${esc(o.os)} • ${dataBR(o.data)}</div><div class="cli">${esc(o.cliente || "Sem cliente")}</div></div>
+      <div class="valor">${dinheiro(o.valor)}<div class="lucro">Custo ${dinheiro(o.custo || 0)}<br>Lucro ${dinheiro(lucro(o))}<br>Comissão ${dinheiro(comValor)}</div></div>
+    </div>
+    <div class="serv">${esc(o.servico || "")}${o.obs ? "\n\nObs: " + esc(o.obs) : ""}</div>
+    <span class="pill ${o.status}">${o.status === "pago" ? "Pago" : "Em aberto"}</span>
+    <span class="pill ${classeComissao}">${textoComissao}</span>
+    ${o.pagamento ? `<span class="muted"> • ${esc(o.pagamento)}</span>` : ""}
+    <div class="actions">
+      <button class="btn small green" onclick="marcarPago('${o.id}')">${o.status === "pago" ? "Reabrir" : "Marcar pago"}</button>
+      <button class="btn small purple" onclick="marcarComissao('${o.id}')">${o.comissaoRecebida ? "Desfazer comissão" : "Peguei comissão"}</button>
+      <button class="btn small light" onclick="editar('${o.id}')">Editar</button>
+      <button class="btn small gray" onclick="imprimir('${o.id}')">PDF</button>
+      <button class="btn small red" onclick="excluir('${o.id}')">Excluir</button>
+    </div>
+  </div>`;
+}
+
+async function marcarPago(id){
+  try{
+    const o = ordens.find(x => x.id === id);
+    if(!o) return;
+    await setDoc(doc(db, "ordens", id), {status: o.status === "pago" ? "aberto" : "pago", atualizadoEm: serverTimestamp()}, {merge:true});
+  }catch(err){ alert("Erro ao alterar status: " + err.message); }
+}
+
+async function marcarComissao(id){
+  try{
+    const o = ordens.find(x => x.id === id);
+    if(!o) return;
+    await setDoc(doc(db, "ordens", id), {
+      comissaoRecebida: !o.comissaoRecebida,
+      comissaoRecebidaEm: !o.comissaoRecebida ? serverTimestamp() : null,
+      atualizadoEm: serverTimestamp()
+    }, {merge:true});
+  }catch(err){ alert("Erro ao alterar comissão: " + err.message); }
+}
+
+function editar(id){
+  const o = ordens.find(x => x.id === id);
+  if(!o) return;
+  E.editId.value = o.id;
+  E.tituloForm.textContent = "Editar OS " + o.os;
+  E.cliente.value = o.cliente || "";
+  E.data.value = o.data || new Date().toISOString().slice(0,10);
+  E.valor.value = String(o.valor || "").replace(".",",");
+  E.custo.value = String(o.custo || "").replace(".",",");
+  E.comissaoValor.value = String(o.comissaoValor || "").replace(".",",");
+  atualizarLucroPreview();
+  E.servico.value = o.servico || "";
+  E.obs.value = o.obs || "";
+  E.status.value = o.status || "aberto";
+  E.pagamento.value = o.pagamento || "";
+  E.tecnico.value = o.tecnico || "Anderson";
+  tela("nova");
+}
+
+async function excluir(id){
+  try{
+    const o = ordens.find(x => x.id === id);
+    if(!o) return;
+    if(confirm(`Excluir OS ${o.os} - ${o.cliente || "Sem cliente"}?`)){ await deleteDoc(doc(db, "ordens", id)); }
+  }catch(err){ alert("Erro ao excluir: " + err.message); }
+}
+
+function imprimir(id){
+  const o = ordens.find(x => x.id === id);
+  if(!o) return;
+  E.printArea.innerHTML = `
+    <div class="phead"><img src="logo.png" onerror="this.style.display='none'"><div><div class="ptitle">ORDEM DE SERVIÇO</div><div class="psub">Assistência técnica em eletromecânica e eletrônica geral</div></div></div>
+    <div class="pgrid">
+      <div><strong>Cliente:</strong> ${esc(o.cliente || "")}</div><div><strong>Data:</strong> ${dataBR(o.data)}</div>
+      <div><strong>OS:</strong> ${esc(o.os)}</div><div><strong>Técnico:</strong> ${esc(o.tecnico || "Anderson")}</div>
+      <div><strong>Status:</strong> ${o.status === "pago" ? "Pago" : "Em aberto"}</div><div><strong>Pagamento:</strong> ${esc(o.pagamento || "-")}</div>
+    </div>
+    <h3>DESCRIÇÃO DO SERVIÇO</h3><div class="pbox">${esc(o.servico || "")}</div>
+    ${o.obs ? `<h3>OBSERVAÇÕES</h3><div class="pbox">${esc(o.obs)}</div>` : ""}
+    <div class="pvalor">${dinheiro(o.valor)}</div>
+    <p>Declaro que o serviço acima foi executado e entregue conforme solicitado.</p>
+    <div class="signs"><div class="sign">Assinatura do Cliente</div><div class="sign">Assinatura do Técnico</div></div>
+  `;
+  window.print();
+}
+
+function backup(){
+  const blob = new Blob([JSON.stringify(ordens,null,2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "backup_ordens_servico.json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function esc(t){
+  return String(t ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+}
+
+window.tela = tela;
+window.nova = nova;
+window.limpar = limpar;
+window.salvarOS = salvarOS;
+window.marcarPago = marcarPago;
+window.marcarComissao = marcarComissao;
+window.editar = editar;
+window.excluir = excluir;
+window.imprimir = imprimir;
+window.backup = backup;
+window.render = render;
+
+limpar();
+render();
 </script>
 </body>
 </html>

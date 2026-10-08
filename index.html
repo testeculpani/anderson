@@ -28,6 +28,60 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:9;background:white;border-top
 .print{display:none}
 @media(min-width:680px){.grid{grid-template-columns:repeat(4,1fr)}}
 @media print{body{background:white;padding:0}header,main,nav{display:none!important}.print{display:block;padding:24px;font-family:Arial;color:#111827}.phead{display:flex;align-items:center;gap:12px;border-bottom:2px solid #e5e7eb;padding-bottom:14px;margin-bottom:18px}.phead img{width:70px;height:70px;object-fit:contain}.ptitle{font-size:26px;font-weight:900}.psub{color:#667085}.pgrid{display:grid;grid-template-columns:1fr 1fr;border:1px solid #d0d5dd;margin-bottom:18px}.pgrid div{padding:12px;border-bottom:1px solid #d0d5dd}.pgrid div:nth-child(odd){border-right:1px solid #d0d5dd}.pbox{border:1px solid #d0d5dd;padding:14px;min-height:110px;margin-bottom:18px;white-space:pre-wrap}.pvalor{border:1px solid #d0d5dd;background:#f2f4f7;padding:14px;font-size:26px;font-weight:900;text-align:right;margin-bottom:28px}.signs{display:grid;grid-template-columns:1fr 1fr;gap:42px;margin-top:70px}.sign{text-align:center;border-top:1px solid #111827;padding-top:8px;color:#475467}}
+
+/* Grade de cards lado a lado */
+#lista, #listaReceber, #relatorioMeses{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(165px, 1fr));
+  gap:10px;
+  align-items:start;
+}
+#lista .empty, #listaReceber .empty, #relatorioMeses .empty{
+  grid-column:1/-1;
+}
+.os{
+  margin-bottom:0!important;
+  height:100%;
+}
+.oshead{
+  flex-direction:column;
+}
+.valor{
+  text-align:left!important;
+  white-space:normal!important;
+}
+.cli{
+  font-size:15px!important;
+}
+.serv{
+  font-size:13px!important;
+  max-height:96px;
+  overflow:auto;
+}
+.actions{
+  display:grid!important;
+  grid-template-columns:1fr;
+}
+.actions .btn{
+  width:100%;
+}
+@media(min-width:520px){
+  #lista, #listaReceber, #relatorioMeses{
+    grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));
+  }
+}
+@media(min-width:900px){
+  #lista, #listaReceber, #relatorioMeses{
+    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .oshead{
+    flex-direction:row;
+  }
+  .valor{
+    text-align:right!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -474,20 +528,93 @@ async function excluir(id){
 function imprimir(id){
   const o = ordens.find(x => x.id === id);
   if(!o) return;
-  E.printArea.innerHTML = `
-    <div class="phead"><img src="logo.png" onerror="this.style.display='none'"><div><div class="ptitle">ORDEM DE SERVIÇO</div><div class="psub">Assistência técnica em eletromecânica e eletrônica geral</div></div></div>
-    <div class="pgrid">
-      <div><strong>Cliente:</strong> ${esc(o.cliente || "")}</div><div><strong>Data:</strong> ${dataBR(o.data)}</div>
-      <div><strong>OS:</strong> ${esc(o.os)}</div><div><strong>Técnico:</strong> ${esc(o.tecnico || "Anderson")}</div>
-      <div><strong>Status:</strong> ${o.status === "pago" ? "Pago" : "Em aberto"}</div><div><strong>Pagamento:</strong> ${esc(o.pagamento || "-")}</div>
+
+  const obsHtml = o.obs ? `<h3>OBSERVAÇÕES</h3><div class="box">${esc(o.obs)}</div>` : "";
+
+  const conteudo = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OS ${esc(o.os)}</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:22px;font-family:Arial,Helvetica,sans-serif;color:#101828;background:white}
+.page{max-width:800px;margin:auto}
+.head{display:flex;align-items:center;gap:12px;border-bottom:2px solid #e5e7eb;padding-bottom:14px;margin-bottom:18px}
+.head img{width:72px;height:72px;object-fit:contain}
+.title{font-size:26px;font-weight:900}
+.sub{color:#667085;margin-top:4px;font-size:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid #d0d5dd;margin-bottom:18px}
+.grid div{padding:12px;border-bottom:1px solid #d0d5dd;font-size:14px}
+.grid div:nth-child(odd){border-right:1px solid #d0d5dd}
+h3{margin:18px 0 8px;font-size:15px}
+.box{border:1px solid #d0d5dd;padding:14px;min-height:100px;margin-bottom:18px;white-space:pre-wrap;font-size:14px}
+.valor{border:1px solid #d0d5dd;background:#f2f4f7;padding:14px;font-size:26px;font-weight:900;text-align:right;margin-bottom:26px}
+p{font-size:14px;color:#344054}
+.signs{display:grid;grid-template-columns:1fr 1fr;gap:42px;margin-top:70px}
+.sign{text-align:center;border-top:1px solid #111827;padding-top:8px;color:#475467;font-size:14px}
+.no-print{display:flex;gap:8px;margin-bottom:18px}
+button{border:0;border-radius:12px;padding:12px 14px;background:#003b73;color:white;font-weight:900;font-size:15px}
+.gray{background:#475467}
+@media print{body{padding:24px}.no-print{display:none!important}}
+@media(max-width:600px){body{padding:12px}.grid{grid-template-columns:1fr}.grid div:nth-child(odd){border-right:0}.signs{grid-template-columns:1fr;gap:60px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="no-print">
+    <button onclick="window.print()">Salvar / Imprimir PDF</button>
+    <button class="gray" onclick="window.close()">Fechar</button>
+  </div>
+
+  <div class="head">
+    <img src="logo.png" onerror="this.style.display='none'">
+    <div>
+      <div class="title">ORDEM DE SERVIÇO</div>
+      <div class="sub">Assistência técnica em eletromecânica e eletrônica geral</div>
     </div>
-    <h3>DESCRIÇÃO DO SERVIÇO</h3><div class="pbox">${esc(o.servico || "")}</div>
-    ${o.obs ? `<h3>OBSERVAÇÕES</h3><div class="pbox">${esc(o.obs)}</div>` : ""}
-    <div class="pvalor">${dinheiro(o.valor)}</div>
-    <p>Declaro que o serviço acima foi executado e entregue conforme solicitado.</p>
-    <div class="signs"><div class="sign">Assinatura do Cliente</div><div class="sign">Assinatura do Técnico</div></div>
-  `;
-  window.print();
+  </div>
+
+  <div class="grid">
+    <div><strong>Cliente:</strong> ${esc(o.cliente || "")}</div>
+    <div><strong>Data:</strong> ${dataBR(o.data)}</div>
+    <div><strong>OS:</strong> ${esc(o.os)}</div>
+    <div><strong>Técnico:</strong> ${esc(o.tecnico || "Anderson")}</div>
+    <div><strong>Status:</strong> ${o.status === "pago" ? "Pago" : "Em aberto"}</div>
+    <div><strong>Pagamento:</strong> ${esc(o.pagamento || "-")}</div>
+  </div>
+
+  <h3>DESCRIÇÃO DO SERVIÇO</h3>
+  <div class="box">${esc(o.servico || "")}</div>
+
+  ${obsHtml}
+
+  <div class="valor">${dinheiro(o.valor)}</div>
+
+  <p>Declaro que o serviço acima foi executado e entregue conforme solicitado.</p>
+
+  <div class="signs">
+    <div class="sign">Assinatura do Cliente</div>
+    <div class="sign">Assinatura do Técnico</div>
+  </div>
+</div>
+
+<script>
+setTimeout(function(){ window.print(); }, 600);
+<\/script>
+</body>
+</html>`;
+
+  const janela = window.open("", "_blank");
+  if(!janela){
+    alert("O navegador bloqueou a abertura do PDF. Libere pop-ups para este site e tente novamente.");
+    return;
+  }
+
+  janela.document.open();
+  janela.document.write(conteudo);
+  janela.document.close();
 }
 
 function backup(){
